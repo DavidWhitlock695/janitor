@@ -1,5 +1,4 @@
 {
-  "scopeName": "source.java",
   "patterns": [
     {
       "name": "meta.annotation.java",
