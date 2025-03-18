@@ -1,0 +1,68 @@
+{
+  "scopeName": "source.java",
+  "patterns": [
+    {
+      "name": "meta.annotation.java",
+      "begin": "@",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.annotation.java"
+        }
+      },
+      "end": "\\s",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.separator.annotation.java"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#annotation"
+        }
+      ]
+    },
+    {
+      "name": "comment.line.double-slash.java",
+      "begin": "//",
+      "end": "$"
+    },
+    {
+      "name": "comment.block.java",
+      "begin": "/\\*",
+      "end": "\\*/"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#types"
+    }
+  ],
+  "repository": {
+    "annotation": {
+      "patterns": [
+        {
+          "name": "entity.name.annotation.java",
+          "match": "[A-Z][a-zA-Z0-9_]*"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.java",
+          "match": "\\b(break|case|catch|continue|default|do|else|finally|for|if|return|switch|throw|try|while)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.java",
+          "match": "\\b(int|boolean|char|byte|short|long|float|double|void|String|List|Map|Set)\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.java"
+}
