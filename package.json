@@ -8,7 +8,9 @@
     "vscode": "^1.60.0"
   },
   "activationEvents": [
-    "onCommand:janitor.hideAnnotations"
+    "onCommand:janitor.hideAnnotations",
+    "onLanguage:java",
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {

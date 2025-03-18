@@ -1,7 +1,7 @@
 import { Uri } from "vscode";
 
 class AnnotationProvider {
-  provideTextDocumentContent(uri: Uri): string {
+  provideTextDocumentContent(uri: Uri, javaCode: string): string {
     // Logic to retrieve the Java file content and hide annotations
     const originalContent = this.getOriginalContent(uri);
     return this.hideAnnotations(originalContent);
