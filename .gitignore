@@ -23,4 +23,17 @@
 hs_err_pid*
 replay_pid*
 
+# Node.js dependencies
+node_modules/
+
+# Compiled output
+out/
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# MacOS specific files
 .DS_Store

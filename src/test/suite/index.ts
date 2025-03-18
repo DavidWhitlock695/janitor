@@ -1,11 +1,11 @@
 import Mocha from "mocha";
 import * as path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import * as fs from "fs";
 
 export function run(): void {
+  // In CommonJS modules, __dirname is available globally
+  // No need for fileURLToPath and import.meta
+
   const mocha = new Mocha({
     ui: "bdd",
     color: true,
@@ -14,8 +14,7 @@ export function run(): void {
   const testDir = path.join(__dirname, ".");
 
   // Add each .test.js file to the mocha instance
-  require("fs")
-    .readdirSync(testDir)
+  fs.readdirSync(testDir)
     .filter((file: string) => {
       return file.endsWith(".test.js");
     })

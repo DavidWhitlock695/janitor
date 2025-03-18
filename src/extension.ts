@@ -3,16 +3,18 @@ import { findHideableElements } from "./utils/javaParser";
 
 let decorationType: vscode.TextEditorDecorationType;
 let hideActive = false;
+let statusBarItem: vscode.StatusBarItem;
 
 export function activate(context: vscode.ExtensionContext) {
   console.log("Janitor extension is now active");
 
-  // Create decoration type for hiding annotations
+  // Create decoration type for hiding
   decorationType = vscode.window.createTextEditorDecorationType({
+    opacity: "0",
     textDecoration: "none; display: none",
   });
 
-  // Register the command to toggle annotations
+  // Register the command to toggle
   let disposable = vscode.commands.registerCommand(
     "janitor.hideAnnotations",
     () => {
@@ -27,7 +29,21 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(disposable);
+  // Create status bar item
+  statusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    100
+  );
+  statusBarItem.command = "janitor.hideAnnotations";
+  statusBarItem.text = "$(eye) Java Types";
+  statusBarItem.tooltip = "Toggle Java types and modifiers visibility";
+  statusBarItem.show();
+
+  context.subscriptions.push(disposable, statusBarItem);
+
+  // Update status when editor changes
+  vscode.window.onDidChangeActiveTextEditor(updateStatusBarVisibility);
+  updateStatusBarVisibility(vscode.window.activeTextEditor);
 }
 
 function toggleAnnotations(editor: vscode.TextEditor) {
@@ -35,10 +51,12 @@ function toggleAnnotations(editor: vscode.TextEditor) {
 
   if (hideActive) {
     applyDecorations(editor);
-    vscode.window.showInformationMessage("Java annotations hidden");
+    statusBarItem.text = "$(eye-closed) Java Types";
+    vscode.window.showInformationMessage("Java types and modifiers hidden");
   } else {
     editor.setDecorations(decorationType, []);
-    vscode.window.showInformationMessage("Java annotations visible");
+    statusBarItem.text = "$(eye) Java Types";
+    vscode.window.showInformationMessage("Java types and modifiers visible");
   }
 }
 
@@ -49,6 +67,14 @@ function applyDecorations(editor: vscode.TextEditor) {
   }));
 
   editor.setDecorations(decorationType, decorations);
+}
+
+function updateStatusBarVisibility(editor?: vscode.TextEditor) {
+  if (editor && editor.document.languageId === "java") {
+    statusBarItem.show();
+  } else {
+    statusBarItem.hide();
+  }
 }
 
 export function deactivate() {}

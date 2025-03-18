@@ -6,8 +6,8 @@ VSCode plugin to hide all the Java annotations I don't want to see all the time.
 
 Java has loads of boilerplate and I want to focus on two of them:
 
-1. types
-2. scopes
+1. types (e.g. String, int...)
+2. scopes (e.g. private, public...)
 
 While I don't want these features to be hidden, the ability to quickly hide them from view to read the code more easily would be nice.
 
@@ -38,3 +38,11 @@ While I don't want these features to be hidden, the ability to quickly hide them
 # The project
 
 To build a VS Code plugin that can hide them with a button/shortcut.
+
+# To install
+
+Opening VS Code
+Going to the Extensions view (Ctrl+Shift+X or ⌘+Shift+X on Mac)
+Clicking on the "..." (More Actions) at the top of the Extensions panel
+Selecting "Install from VSIX..."
+Browsing to and selecting your .vsix file
